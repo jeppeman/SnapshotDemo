@@ -1,0 +1,13 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+    }
+
+    dependencies {
+        classpath files(libs.class.superclass.protectionDomain.codeSource.location)
+        classpath libs.kotlin.gradle
+        classpath libs.android.gradleplugin
+        classpath libs.paparazzi
+    }
+}

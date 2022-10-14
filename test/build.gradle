@@ -1,0 +1,52 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'app.cash.paparazzi'
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 32
+    }
+
+    buildTypes {
+        record { initWith debug }
+        verification { initWith debug }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion libs.versions.compose.compiler.get()
+    }
+}
+
+afterEvaluate {
+    tasks.withType(Test) {
+        testLogging {
+            exceptionFormat "full"
+            showCauses true
+            showExceptions true
+            showStackTraces true
+            showStandardStreams true
+            events = ["failed"]
+        }
+    }
+}
+
+dependencies {
+    implementation libs.kotlin.stdlib
+    implementation libs.compose.ui
+    implementation libs.compose.material
+
+    testImplementation libs.testparameterinjector
+    testImplementation libs.junit
+}
